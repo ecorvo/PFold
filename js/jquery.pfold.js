@@ -97,7 +97,18 @@
 	};
 
 	$.PFold.prototype = {
-
+        _destroyPfold: function () {
+            this._unbindEvents();
+            this.$el.removeData();
+            //this.$el.removeAttr('style');
+            var $initialContentEl = this.$el.find('div.uc-initial-content').first();
+            var $finalContentEl = this.$el.find('div.uc-final-content');
+            this.$el.html('');
+            this.$el.append($initialContentEl).append($finalContentEl);
+        },
+        _unbindEvents: function () {
+            $window.off('debouncedresize.pfold');
+        },
 		_init : function( options ) {
 			
 			// options
